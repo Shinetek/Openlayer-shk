@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+div.ol-full-screen{
+    top: 2%;
+    left: 97.1%;
+    cursor: pointer;
+}
+
+div.ol-zoom{
+    top: 6%;
+    left: 97.1%;
+    cursor: pointer;
+}
+
+div.ol-zoom-extent{
+    top: 13%;
+    left: 97.1%;
+    cursor: pointer;
+}
+
+div.ol-zoomslider{
+    top: 13%;
+    left: 97.1%;
+    cursor: pointer;
+}
+
+div.ol-scale-line{
+    bottom: 130px;
+    left: 92%;
+    cursor: pointer;
+}
+
+div.ol-mouse-position{
+    bottom: 110px;
+    text-shadow: -1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+    color: white;
+    cursor: pointer;
+}
+
+div.ol-mouse-position:hover{
+    background-color: rgba(40,40,40,.85);
+}
