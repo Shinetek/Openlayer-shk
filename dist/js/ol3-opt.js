@@ -270,6 +270,27 @@ Shinetek.Ol3Opt={
         (layer.getVisible()==true) ? layer.setVisible(false) : layer.setVisible(true);
     },
 
+    //监听图片开始加载
+    oStart:function(nameFun){
+        var layer=window.obj[nameFun];
+        layer.getSource().on('tileloadstart', function(event) {
+            alert("111")
+        });
+    },
+
+    //监听图片结束加载
+    oEnd:function(nameFun){
+        var layer=window.obj[nameFun];
+        layer.getSource().on('tileloadend', function(event) {
+            alert("222")
+        });
+    },
+
+    //刷新图层
+    oRefresh:function(){
+        map.updateSize();
+    },
+
     /**
      * 获取图层当前z-index值
      * @param nameFun 图层对象名
@@ -332,6 +353,13 @@ Shinetek.Ol3Opt={
         });
         graticule.setMap(map);
     },
+
+    /**
+     *获取分辨率等信息
+     */
+    getRe:function () {
+        return map.getView().getResolution();
+    }
 
 }
 

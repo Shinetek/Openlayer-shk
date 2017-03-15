@@ -45,4 +45,11 @@ div.ol-mouse-position:hover{
 
 div#map{
     background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+div#mapbig{
+    width: 100%;
+    height: 100%;
 }

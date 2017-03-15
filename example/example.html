@@ -12,6 +12,10 @@
             width: 100%;
             height: 100%;
         }
+        div#mapbig{
+            width: 100%;
+            height: 100%;
+        }
         div#map{
             width: 100%;
             height: 100%;
@@ -19,66 +23,82 @@
         #map:focus {
             outline: #4A74A8 solid 0.15em;
         }
+
+        /*.clock{
+            width: 30px;
+            height: 20px;
+            position: absolute;
+            z-index: 6000;
+            float: right;
+            top: 5%;
+            left: 93%;
+            cursor: pointer;
+            background-color: rgba(255,255,255,.4);
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        #aaa{
+            margin-top: 100px;
+        }*/
     </style>
-    <link rel="stylesheet" href="../css/ol.css" type="text/css">
-    <link rel="stylesheet" href="../css/shk3.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/ol3.css" type="text/css">
+    <link rel="stylesheet" href="../screenshot/css/jquery.Jcrop.css">   <!--截图-->
+    <link rel="stylesheet" href="../screenshot/css/bootstrap.css">
+    <link rel="stylesheet" href="../screenshot/css/screenshots.css">   <!--截图封装-->
+    <link rel="stylesheet" href="../dist/css/shk-ol3.css" type="text/css">
 </head>
 <body>
-    <div id="map" class="map">
-        <!--<button id="aaa" type="button"></button>
-        <button id="bbb" type="button"></button>
-        <button id="ccc" type="button"></button>
-        <button id="ddd" type="button"></button>-->
+<div id="mapbig">
+    <!--截图开始-->
+    <div class="camera"><img src="../screenshot/img/creamer.jpg"/></div>
+    <!--<div class="clock" onclick="oClock()"></div>-->
+    <div id="snapshot">
+
     </div>
+    <!--截图结束-->
+    <div id="map" class="map">
+
+    </div>
+</div>
 </body>
 </html>
 
 
-<script type="text/javascript" src="../js/ol-debug.js"></script>
-<script src="../js/ol.js"></script>
-<script src="../js/jquery-2.1.0.js"></script>
-<script type="text/javascript" src="../js/FY4System-3.0.0.js"></script>
+<script type="text/javascript" src="../dist/js/ol3-debug.js"></script>
+<script src="../dist/js/ol3.js"></script>
+<script src="../dist/js/jquery.min.js"></script>
+<script src="../screenshot/js/jquery.Jcrop.js"></script>   <!--截图-->
+<script src="../screenshot/js/bootstrap.js"></script>
+<script type="text/javascript" src="../screenshot/js/screenshots.js"></script>    <!--封装截图下载-->
+<script type="text/javascript" src="../dist/js/ol3-opt.js"></script>
 
 <script>
-    WMS.init("http://10.24.10.108/IMAGEL2/GBAL/");
-   /* WMS.addLayer("tFun1","TMS1","http://10.24.10.108/IMAGEL2/ACI/20170120_0100/","false","TMS");//黑色
-    WMS.addLayer("tFun2","TMS2","http://10.24.10.108/IMAGEL2/NWI/20170120_0100/","false","TMS");//蓝色
-    WMS.addLayer("tFun3","TMS3","http://10.24.10.108/IMAGEL2/VWI/20170120_0100/","false","TMS");//绿色*/
-    WMS.addLayer("tFun4","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
-    //WMS.addLayer("kFun1","KML1","http://10.24.4.130:4004/firepoint/AHI8/AGRI/20170122/AHI8_AGRIX_L2_FHS_20170122_0110_2000M_NOM.KML","false","KML");//火点图
-    /*WMS.addLayer("wFun1","WMS1","https://ahocevar.com/geoserver/wms","false","WMS");//wms谷歌
-    WMS.addLayer("wFun1","WMS1","http://www.scgis.net.cn/imap/iMapServer/defaultRest/services/newtianditudom_scann/WMS","false","WMS");//wms天地图*/
-    //出售一批百度糯米电影七折优惠码，十元一码，每单（限俩个座位）购买任何电影都可享受七折优惠，最高优惠24元，数量有限，先到先得
+    Shinetek.Ol3Opt.init("http://10.24.10.108/IMAGEL2/GBAL/");
+    $("#snapshot").load("../screenshot/photo.html",function () {
+        screenshots.init("http://img1.3lian.com/2015/w7/98/d/22");
+    });
+    //WMS.addLayer("geo","shp_geo","https://openlayers.org/en/v3.20.1/examples/data/geojson/countries.geojson","false","GEOJSON");
+    //WMS.addLayer("geo","shp_geo","省级行政区域_面.json","false","GEOJSON");
+    //WMS.addLayer("XYZ1","天地图行政区划","http://t6.tianditu.com/DataServer?T=tbo_w&x={x}&y={y}&l={z}","false","XYZ");
+    //WMS.addLayer("XYZ1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");
+    //WMS.addLayer("XYZ2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");
+    //天地图卫星影像  img_w    ???lyr
+    //WMS.graticule();
+    //WMS.addLayer("tFun1","TMS1","http://10.24.10.108/IMAGEL2/PRJ/500M/0064/20170123_0710/","false","TMS");//黑色
+    //WMS.addLayer("tFun2","TMS2","http://10.24.10.108/IMAGEL2/VWI/20170123_0100/","false","TMS");//蓝色
+    var oUrl="http://10.24.10.108/IMAGEL2/ACI/20170306_0650/";
+    Shinetek.Ol3Opt.addLayer("tFun3","TMS3",oUrl,"false","TMS");//绿色
+    //WMS.oEnd("tFun3");
 
-
-
-
-
-    /*var oBut=document.getElementById("aaa");
-    oBut.onclick=function(){
-        alert("开始点击按钮1");
-        WMS.setVisibility("tFun1","TMS");
-       /!* WMS.setZIndex("tFun1",1000);*!/
-    }
-
-    var oBUt=document.getElementById("bbb");
-    oBUt.onclick=function(){
-        alert("点击按钮2");
-        WMS.setVisibility("tFun2","TMS");
-        /!*WMS.setZIndex("tFun2",2000);*!/
-    }
-
-    var oBUT=document.getElementById("ccc");
-    oBUT.onclick=function(){
-        alert("点击按钮3");
-        WMS.setVisibility("tFun3","TMS");
-        /!*WMS.setZIndex("tFun2",500);*!/
-    }
-
-    var oBUT=document.getElementById("ddd");
-    oBUT.onclick=function(){
-        alert("点击按钮3");
-        WMS.setVisibility("tFun4","TMS");
-        /!*WMS.setZIndex("tFun2",500);*!/
+    /*function oClock() {
+        alert("abc");
+        var oUrl="http://10.24.10.108/IMAGEL2/CLM/20170306_0650/";
+        WMS.oRefresh();
+        alert("abcc");
     }*/
+
+    //WMS.addLayer("tFun4","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
+    //WMS.addLayer("kFun1","KML1","http://10.24.4.130:4004/firepoint/AHI8/AGRI/20170122/AHI8_AGRIX_L2_FHS_20170122_0110_2000M_NOM.KML","false","KML");//火点图
+    //WMS.addLayer("wFun2","WMS谷歌","https://ahocevar.com/geoserver/wms","false","WMS");//wms谷歌
 </script>
