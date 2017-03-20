@@ -5,6 +5,7 @@ var obj=new Object();
 var map ;
 var styleCache = {};
 var Shinetek = {};
+var olMapLoadStatus=false;
 
 Shinetek.Ol3Opt={
     /**
@@ -48,6 +49,21 @@ Shinetek.Ol3Opt={
                 resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
                 extent: [-180, -90, 180, 90],
             }),
+        });
+        //地图渲染未开始事件
+        map.on('precompose',function (e) {
+            var olMapLoadStatus="false";
+            window.olMapLoadStatus=olMapLoadStatus;
+        });
+        //地图渲染中事件
+        map.on('postcompose',function (e) {
+            var olMapLoadStatus="false";
+            window.olMapLoadStatus=olMapLoadStatus;
+        });
+        //地图渲染结束
+        map.on('postrender',function (e) {
+            var olMapLoadStatus="true";
+            window.olMapLoadStatus=olMapLoadStatus;
         });
     },
 
@@ -284,6 +300,12 @@ Shinetek.Ol3Opt={
         layer.getSource().on('tileloadend', function(event) {
             alert("222")
         });
+    },
+
+    //地图渲染结束事件
+    oGetStatus:function(){
+        var olMapLoadStatus=window.olMapLoadStatus;
+        return olMapLoadStatus;
     },
 
     //刷新图层

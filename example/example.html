@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>text</title>
     <style>
         *{
@@ -43,8 +44,8 @@
         }*/
     </style>
     <link rel="stylesheet" href="../dist/css/ol3.css" type="text/css">
-    <link rel="stylesheet" href="../screenshot/css/jquery.Jcrop.css">   <!--截图-->
     <link rel="stylesheet" href="../screenshot/css/bootstrap.css">
+    <link rel="stylesheet" href="../screenshot/css/jquery.Jcrop.css">   <!--截图-->
     <link rel="stylesheet" href="../screenshot/css/screenshots.css">   <!--截图封装-->
     <link rel="stylesheet" href="../dist/css/shk-ol3.css" type="text/css">
 </head>
@@ -68,10 +69,10 @@
 <script type="text/javascript" src="../dist/js/ol3-debug.js"></script>
 <script src="../dist/js/ol3.js"></script>
 <script src="../dist/js/jquery.min.js"></script>
-<script src="../screenshot/js/jquery.Jcrop.js"></script>   <!--截图-->
 <script src="../screenshot/js/bootstrap.js"></script>
-<script type="text/javascript" src="../screenshot/js/screenshots.js"></script>    <!--封装截图下载-->
 <script type="text/javascript" src="../dist/js/ol3-opt.js"></script>
+<script src="../screenshot/js/jquery.Jcrop.js"></script>   <!--截图-->
+<script type="text/javascript" src="../screenshot/js/screenshots.js"></script>    <!--封装截图下载-->
 
 <script>
     Shinetek.Ol3Opt.init("http://10.24.10.108/IMAGEL2/GBAL/");
@@ -89,12 +90,16 @@
     //WMS.addLayer("tFun2","TMS2","http://10.24.10.108/IMAGEL2/VWI/20170123_0100/","false","TMS");//蓝色
     var oUrl="http://10.24.10.108/IMAGEL2/ACI/20170314_0600/";
     Shinetek.Ol3Opt.addLayer("tFun3","TMS3",oUrl,"false","TMS");//绿色
+    //Shinetek.Ol3Opt.otext();
 
+   /* map.on('precompose',function (e) {
+        console.log("mapNoStart");
+    });
+    console.log(map);*/
 
-    /*function oClock() {
-        alert("ok");
-        Shinetek.Ol3Opt.oEnd("tFun3");
-    }*/
+    function oClock() {
+        alert(Shinetek.Ol3Opt.oGetStatus());
+    }
 
     //WMS.addLayer("tFun4","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
     //WMS.addLayer("kFun1","KML1","http://10.24.4.130:4004/firepoint/AHI8/AGRI/20170122/AHI8_AGRIX_L2_FHS_20170122_0110_2000M_NOM.KML","false","KML");//火点图

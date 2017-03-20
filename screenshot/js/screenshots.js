@@ -34,14 +34,13 @@ var screenshots={
                 api.ui.selection.addClass('jcrop-selection');
             });
 
-            $('#coords').on('change','input',function(e){
-             var x1 = $('#x1').val(),
-             x2 = $('#x2').val(),
-             y1 = $('#y1').val(),
-             y2 = $('#y2').val();
-             jcrop_api.setSelect([x1,y1,x2,y2]);
-             });
-
+            /*$('#coords').on('change','input',function(e){
+                var x1 = $('#x1').val(),
+                    x2 = $('#x2').val(),
+                    y1 = $('#y1').val(),
+                    y2 = $('#y2').val();
+                jcrop_api.setSelect([x1,y1,x2,y2]);
+            });*/
         };
 
         var oBut=document.getElementById("down");
@@ -146,6 +145,7 @@ var screenshots={
         var bottomRightXY=map.getCoordinateFromPixel([x2,y2],1);
         $('#topLeft').val(leftTopXY);
         $('#bottomRight').val(bottomRightXY);
+        console.log( $('#topLeft').val());
     },
 
     /**
