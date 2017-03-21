@@ -79,29 +79,7 @@
     $("#snapshot").load("../screenshot/photo.html",function () {
         screenshots.init("http://img1.3lian.com/2015/w7/98/d/22");
     });
-    //WMS.addLayer("geo","shp_geo","https://openlayers.org/en/v3.20.1/examples/data/geojson/countries.geojson","false","GEOJSON");
-    //WMS.addLayer("geo","shp_geo","省级行政区域_面.json","false","GEOJSON");
-    //WMS.addLayer("XYZ1","天地图行政区划","http://t6.tianditu.com/DataServer?T=tbo_w&x={x}&y={y}&l={z}","false","XYZ");
-    //WMS.addLayer("XYZ1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");
-    //WMS.addLayer("XYZ2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");
-    //天地图卫星影像  img_w    ???lyr
-    //WMS.graticule();
-    //WMS.addLayer("tFun1","TMS1","http://10.24.10.108/IMAGEL2/PRJ/500M/0064/20170123_0710/","false","TMS");//黑色
-    //WMS.addLayer("tFun2","TMS2","http://10.24.10.108/IMAGEL2/VWI/20170123_0100/","false","TMS");//蓝色
-    var oUrl="http://10.24.10.108/IMAGEL2/ACI/20170314_0600/";
-    Shinetek.Ol3Opt.addLayer("tFun3","TMS3",oUrl,"false","TMS");//绿色
-    //Shinetek.Ol3Opt.otext();
+    Shinetek.Ol3Opt.addLayer("tianditu","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
+    Shinetek.Ol3Opt.removeSomeLayer("tianditu")
 
-   /* map.on('precompose',function (e) {
-        console.log("mapNoStart");
-    });
-    console.log(map);*/
-
-    function oClock() {
-        alert(Shinetek.Ol3Opt.oGetStatus());
-    }
-
-    //WMS.addLayer("tFun4","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
-    //WMS.addLayer("kFun1","KML1","http://10.24.4.130:4004/firepoint/AHI8/AGRI/20170122/AHI8_AGRIX_L2_FHS_20170122_0110_2000M_NOM.KML","false","KML");//火点图
-    //WMS.addLayer("wFun2","WMS谷歌","https://ahocevar.com/geoserver/wms","false","WMS");//wms谷歌
 </script>

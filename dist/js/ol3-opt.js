@@ -276,6 +276,23 @@ Shinetek.Ol3Opt={
     },
 
     /**
+     * 匹配部分名字进行删除图层
+     * @param nameFun 图层名的部分
+     */
+    removeSomeLayer:function (nameFun) {
+        //console.log(map.getLayers());
+        var layer=window.obj[nameFun];
+        var myName=nameFun;
+        var layers=window.obj;
+        console.log(layers)
+        for (i in layers){
+            if (myName.indexOf(i)>=0){
+                map.removeLayer(i)
+            }
+        }
+    },
+
+    /**
      *  显示隐藏图层
      * @param nameFun 图层对象名
      * @param WorT 图层格式WMS/TMS/KML
