@@ -25,23 +25,6 @@
             outline: #4A74A8 solid 0.15em;
         }
 
-        /*.clock{
-            width: 30px;
-            height: 20px;
-            position: absolute;
-            z-index: 6000;
-            float: right;
-            top: 5%;
-            left: 93%;
-            cursor: pointer;
-            background-color: rgba(255,255,255,.4);
-            border-radius: 4px;
-            padding: 4px;
-        }
-
-        #aaa{
-            margin-top: 100px;
-        }*/
     </style>
     <link rel="stylesheet" href="../dist/css/ol3.css" type="text/css">
     <link rel="stylesheet" href="../screenshot/css/bootstrap.css">
@@ -80,6 +63,8 @@
         screenshots.init("http://img1.3lian.com/2015/w7/98/d/22");
     });
     Shinetek.Ol3Opt.addLayer("tianditu","TMS4","http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/","false","TMS");//TMS天地图
-    Shinetek.Ol3Opt.removeSomeLayer("tianditu")
+    Shinetek.Ol3Opt.removeSomeLayer("tianditu");
+
+    Shinetek.Ol3Opt.setScreenTitle("ABC")
 
 </script>

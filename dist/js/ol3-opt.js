@@ -65,6 +65,25 @@ Shinetek.Ol3Opt={
             var olMapLoadStatus="true";
             window.olMapLoadStatus=olMapLoadStatus;
         });
+
+        var oAllScreen=document.getElementsByClassName("ol-overlaycontainer-stopevent")[0];
+        oAllScreen.onclick=function (e) {
+            e = e || window.event;
+            e.target = e.target || e.srcElement;
+            e.preventDefault ? e.preventDefault() : e.returnValue = false;
+            var oScreenF=document.getElementsByClassName("ol-full-screen-false")[0];
+            var oScreenT=document.getElementsByClassName("ol-full-screen-true")[0];
+            if (e.target==oScreenF){
+                var newProductTitleF=document.createElement("div");
+                newProductTitleF.className="productTitle";
+                var newProductP=document.createElement("p");
+                newProductTitleF.appendChild(newProductP);
+                oAllScreen.appendChild(newProductTitleF);
+            }else if (e.target==oScreenT){
+                var newProductTitleT=document.getElementsByClassName("productTitle")[0];
+                oAllScreen.removeChild(newProductTitleT);
+            }
+        }
     },
 
     /**
@@ -336,7 +355,7 @@ Shinetek.Ol3Opt={
      */
     getZIndex:function(nameFun){
         var layer=window.obj[nameFun];
-        layer.getZIndex();
+        return layer.getZIndex();
     },
 
     /**
@@ -398,7 +417,20 @@ Shinetek.Ol3Opt={
      */
     getRe:function () {
         return map.getView().getResolution();
-    }
+    },
 
+    /**
+     * 播放动画时设置产品标题
+     * @param nameLayer
+     */
+    setScreenTitle:function (nameLayer) {
+        var oScreenBut=document.getElementsByClassName("ol-full-screen")[0].getElementsByTagName("button")[0];
+        if(oScreenBut.className="ol-full-screen-false"){
+
+        }else if (oScreenBut.className="ol-full-screen-true"){
+            var oTitleP=document.getElementsByClassName("productTitle")[0].getElementsByTagName("p")[0];
+            oTitleP.innerHTML(nameLayer);
+        }
+    },
 }
 
