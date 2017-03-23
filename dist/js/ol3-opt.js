@@ -66,7 +66,7 @@ Shinetek.Ol3Opt={
             window.olMapLoadStatus=olMapLoadStatus;
         });
 
-        var oAllScreen=document.getElementsByClassName("ol-overlaycontainer-stopevent")[0];
+        /*var oAllScreen=document.getElementsByClassName("ol-overlaycontainer-stopevent")[0];
         oAllScreen.onclick=function (e) {
             e = e || window.event;
             e.target = e.target || e.srcElement;
@@ -83,7 +83,26 @@ Shinetek.Ol3Opt={
                 var newProductTitleT=document.getElementsByClassName("productTitle")[0];
                 oAllScreen.removeChild(newProductTitleT);
             }
-        }
+        };*/
+
+        //监听地图窗口的变化，判断是否为全屏模式，并设置全屏产品标题栏是否显示
+        map.on('change:size',function(e){
+            var oScreenBut=document.getElementsByClassName("ol-full-screen")[0].getElementsByTagName("button")[0];
+            if(oScreenBut.className=="ol-full-screen-false"){
+                if (document.getElementsByClassName("productTitle")[0]){
+                    var newProductTitleT=document.getElementsByClassName("productTitle")[0];
+                    oAllScreen.removeChild(newProductTitleT);
+                }else{
+                    alert("不全屏模式拖动地图错误");
+                }
+            }else if (oScreenBut.className=="ol-full-screen-true"){
+                var newProductTitleF=document.createElement("div");
+                newProductTitleF.className="productTitle";
+                var newProductP=document.createElement("p");
+                newProductTitleF.appendChild(newProductP);
+                oAllScreen.appendChild(newProductTitleF);
+            }
+        });
     },
 
     /**
@@ -425,11 +444,11 @@ Shinetek.Ol3Opt={
      */
     setScreenTitle:function (nameLayer) {
         var oScreenBut=document.getElementsByClassName("ol-full-screen")[0].getElementsByTagName("button")[0];
-        if(oScreenBut.className="ol-full-screen-false"){
+        if(oScreenBut.className=="ol-full-screen-false"){
 
-        }else if (oScreenBut.className="ol-full-screen-true"){
+        }else if (oScreenBut.className=="ol-full-screen-true"){
             var oTitleP=document.getElementsByClassName("productTitle")[0].getElementsByTagName("p")[0];
-            oTitleP.innerHTML(nameLayer);
+            oTitleP.innerHTML=nameLayer;
         }
     },
 }
