@@ -40,13 +40,13 @@ Shinetek.Ol3Opt={
                 projection: 'EPSG:4326',
                 center: [105, 34],
                 zoom: 4,
-                minZoom: 0,
-                maxZoom: 10,
+                minZoom: 2,
+                maxZoom: 8,
                 // 设置地图中心范围
                 /*extent: [102, 29, 104, 31],*/
                 // 设置成都为地图中心
-                /*center: [104.06, 30.67],*/
-                resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
+                center: [99.56, 99.5],
+                resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,/*0.001220703125,0.0006103515625*/], //设置分辨率
                 extent: [-180, -90, 180, 90],
             }),
         });
@@ -133,11 +133,11 @@ Shinetek.Ol3Opt={
                 projection: 'EPSG:4326',
                 tileGrid: new ol.tilegrid.TileGrid({
                     origin: ol.extent.getBottomLeft(new ol.proj.get("EPSG:4326").getExtent()),    // 设置原点坐标
-                    resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625*/], //设置分辨率
-                    /*extent: [-180, -90, 180, 90],*/
+                    resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
+                    extent: [-180, -90, 180, 90],
                     tileSize:[256,256],
                 }),
-                wrapX:true,
+                wrapX:false,
                 tileUrlFunction:function(tileCoord, pixelRatio, projection) {
                     var z = tileCoord[0];
                     var x = tileCoord[1];
@@ -216,7 +216,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.TileWMS({
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                    /* params: {
                         'VERSION': '1.1.1',
                         LAYERS: 'lzugis:capital',
@@ -247,7 +247,7 @@ Shinetek.Ol3Opt={
                     format : new ol.format.KML({
                         extractStyles: false
                     }),
-                    wrapX:true,
+                    wrapX:false,
                 }),
                 blur: 5,
                 radius: 5,
@@ -275,7 +275,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.XYZ({
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                     /*WMS.addLayer("WMS1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");*/
                     /*WMS.addLayer("WMS2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");*/
                 })
@@ -289,7 +289,7 @@ Shinetek.Ol3Opt={
                 source: new ol.source.Vector({                 
                     format: new ol.format.GeoJSON(),
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                 }),
                 style: new ol.style.Style({
                     stroke: new ol.style.Stroke({
