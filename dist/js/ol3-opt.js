@@ -14,10 +14,10 @@ Shinetek.Ol3Opt={
      */
     init:function(url){
           map = new ol.Map({
-            layers:[
+            /*layers:[
                 // 加载底图
                 Shinetek.Ol3Opt.addLayer("BaseLayer","baseLayer",url,"true","TMS"),
-            ],
+            ],*/
             target: 'map',
             controls: ol.control.defaults({
                 attribution: false,
@@ -137,7 +137,7 @@ Shinetek.Ol3Opt={
                     /*extent: [-180, -90, 180, 90],*/
                     tileSize:[256,256],
                 }),
-                wrapX:false,
+                wrapX:true,
                 tileUrlFunction:function(tileCoord, pixelRatio, projection) {
                     var z = tileCoord[0];
                     var x = tileCoord[1];
@@ -216,7 +216,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.TileWMS({
                     url: oURL,
-                    wrapX:false,
+                    wrapX:true,
                    /* params: {
                         'VERSION': '1.1.1',
                         LAYERS: 'lzugis:capital',
@@ -275,6 +275,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.XYZ({
                     url: oURL,
+                    wrapX:true,
                     /*WMS.addLayer("WMS1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");*/
                     /*WMS.addLayer("WMS2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");*/
                 })
@@ -288,6 +289,7 @@ Shinetek.Ol3Opt={
                 source: new ol.source.Vector({                 
                     format: new ol.format.GeoJSON(),
                     url: oURL,
+                    wrapX:true,
                 }),
                 style: new ol.style.Style({
                     stroke: new ol.style.Stroke({

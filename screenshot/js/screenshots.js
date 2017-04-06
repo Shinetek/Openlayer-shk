@@ -10,13 +10,13 @@ var screenshots={
      * @param url
      */
     init:function(url){
-        var oCamera=document.getElementsByClassName("camera")[0];
+        var oCamera=document.getElementsByClassName("sv-toolbar-button")[1];
         var oSnapshot=document.getElementById("snapshot");
         var api;
         /**
          * 点击照相机截图图片时调用的函数
          */
-        oCamera.onclick=function () {
+        /*oCamera.onclick=function () {
             //显示截图下载框
             oSnapshot.style.display="block";
             //创建Jcrop截图
@@ -34,16 +34,16 @@ var screenshots={
                 api.ui.selection.addClass('jcrop-selection');
             });
 
-            /*$('#coords').on('change','input',function(e){
+            /!*$('#coords').on('change','input',function(e){
                 var x1 = $('#x1').val(),
                     x2 = $('#x2').val(),
                     y1 = $('#y1').val(),
                     y2 = $('#y2').val();
                 jcrop_api.setSelect([x1,y1,x2,y2]);
-            });*/
-        };
+            });*!/
+        };*/
 
-        var oBut=document.getElementById("down");
+        var oBut=document.getElementById("screenDownLoad");
         /**
          * 点击DownLoad下载所截图片时需要的信息
          */
@@ -145,7 +145,6 @@ var screenshots={
         var bottomRightXY=map.getCoordinateFromPixel([x2,y2],1);
         $('#topLeft').val(leftTopXY);
         $('#bottomRight').val(bottomRightXY);
-        console.log( $('#topLeft').val());
     },
 
     /**
@@ -213,7 +212,7 @@ var screenshots={
      * @param url
      */
     oDownLoad:function (url) {
-        var odownLoad=document.getElementById("downLoad");
+        var odownLoad=document.getElementById("screenDownLoad");
         if (screenshots.myBrowser()==="IE"||screenshots.myBrowser()==="Edge"){
             //IE
             odownLoad.href="#";
