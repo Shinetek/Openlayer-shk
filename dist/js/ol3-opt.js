@@ -452,9 +452,14 @@ Shinetek.Ol3Opt={
      */
     mapZoom:function(map){
         var view=map.getView();
+        var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+        var myResolution=document.createElement("div");
+        myResolution.className="myResolution";
+        myResolution.innerHTML=Shinetek.Ol3Opt.getRe();
+        oResParent.appendChild(myResolution);
+
         view.on('change:resolution',function(e){
             var res=map.getView().getResolution();
-            var op=document.createElement();
             /* alert(res+'zoom了');*/
             var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
             //清空上一个div
