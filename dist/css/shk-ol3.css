@@ -72,3 +72,13 @@ div#mapbig{
     color: #144d14;
     text-shadow: -0.5px -0.5px 0 #ffffff, 0.5px -0.5px 0 #ffffff, -0.5px 0.5px 0 #ffffff, 0.5px 0.5px 0 #ffffff;
 }
+
+.myResolution{
+    color: #eee;
+    font-size: 10px;
+    text-align: center;
+}
+
+.ol-scale-line-inner {
+    display: none;
+}

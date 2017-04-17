@@ -23,13 +23,13 @@ Shinetek.Ol3Opt={
                 attribution: false,
             }).extend([
                 new ol.control.FullScreen(), //全屏
-                new ol.control.MousePosition({
+                /*new ol.control.MousePosition({
                     undefinedHTML: 'outside',
                     projection: 'EPSG:4326',
                     coordinateFormat: function(coordinate) {
                         return ol.coordinate.format(coordinate, '{x}, {y}', 5);
                     }
-                }), //经纬度坐标
+                }), //经纬度坐标*/
                 /*new ol.control.OverviewMap(),*/ //鸟瞰图
                 new ol.control.ScaleLine(), // 比例尺
                 new ol.control.ZoomSlider(), //滚动轴
@@ -39,14 +39,14 @@ Shinetek.Ol3Opt={
             view: new ol.View({
                 projection: 'EPSG:4326',
                 center: [105, 34],
-                zoom: 2,
-                minZoom: 2,
-                maxZoom: 8,
+                zoom: 4,
+                minZoom: 0,
+                maxZoom: 10,
                 // 设置地图中心范围
                 /*extent: [102, 29, 104, 31],*/
                 // 设置成都为地图中心
                 center: [99.5, 0],
-                resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,/*0.001220703125,0.0006103515625*/], //设置分辨率
+                resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
                 extent: [-180, -90, 180, 90],
             }),
         });
@@ -64,7 +64,9 @@ Shinetek.Ol3Opt={
         map.on('postrender',function (e) {
             var olMapLoadStatus="true";
             window.olMapLoadStatus=olMapLoadStatus;
-        });
+        })
+        //地图缩放
+        Shinetek.Ol3Opt.mapZoom(map);
 
         /*var oAllScreen=document.getElementsByClassName("ol-overlaycontainer-stopevent")[0];
         oAllScreen.onclick=function (e) {
@@ -443,6 +445,38 @@ Shinetek.Ol3Opt={
      */
     getRe:function () {
         return map.getView().getResolution();
+    },
+
+    /**
+     * 地图缩放事件
+     */
+    mapZoom:function(map){
+        var view=map.getView();
+        view.on('change:resolution',function(e){
+            var res=map.getView().getResolution();
+            var op=document.createElement();
+            /* alert(res+'zoom了');*/
+            var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+            //清空上一个div
+            var oResParent_child=oResParent.childNodes;
+            if (oResParent_child.length=="1"){
+
+
+            }else if (oResParent_child.length!=="1"){
+                var oldmyResolution=document.getElementsByClassName("myResolution");
+                for (var i=0;i<oldmyResolution.length;i++){
+                    oResParent.removeChild(oldmyResolution[i]);
+                }
+            }
+            /*console.log(oResParent_child.length);*/
+
+
+            //创建div
+            var myResolution=document.createElement("div");
+            myResolution.className="myResolution";
+            myResolution.innerHTML=res;
+            oResParent.appendChild(myResolution);
+        });
     },
 
     /**
