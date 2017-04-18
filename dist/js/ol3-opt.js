@@ -39,14 +39,14 @@ Shinetek.Ol3Opt={
             view: new ol.View({
                 projection: 'EPSG:4326',
                 center: [105, 34],
-                zoom: 4,
-                minZoom: 0,
-                maxZoom: 10,
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 8,
                 // 设置地图中心范围
                 /*extent: [102, 29, 104, 31],*/
                 // 设置成都为地图中心
                 center: [99.5, 0],
-                resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
+                resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625/*,0.001220703125,0.0006103515625*/], //设置分辨率
                 extent: [-180, -90, 180, 90],
             }),
         });
@@ -123,7 +123,7 @@ Shinetek.Ol3Opt={
      */
     addTile:function (nameFun,nameLayer,oURL,isBase,WorT) {
         //判断如果为TMS天地图，则使用png格式
-        if(oURL=="http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/"){
+        if(oURL=="http://10.24.241.199/DISKGRID/NEW/"){
             var urlTemplate = oURL+"{z}/{x}/{y}.png";
         }
         //其他TMS图使用jpg格式
@@ -147,7 +147,7 @@ Shinetek.Ol3Opt={
                     var y = tileCoord[2];
                     // wrap the world on the X axis
                     var n = Math.pow(2, z + 1); // 2 tiles at z=0
-                    x = x % n;
+                    /*x = x % n;*/
                     if (x * n < 0) {
                         // x and n differ in sign so add n to wrap the result
                         // to the correct sign
@@ -452,11 +452,7 @@ Shinetek.Ol3Opt={
      */
     mapZoom:function(map){
         var view=map.getView();
-        var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
-        var myResolution=document.createElement("div");
-        myResolution.className="myResolution";
-        myResolution.innerHTML=Shinetek.Ol3Opt.getRe();
-        oResParent.appendChild(myResolution);
+        Shinetek.Ol3Opt.newResolution(Shinetek.Ol3Opt.getRe());
 
         view.on('change:resolution',function(e){
             var res=map.getView().getResolution();
@@ -467,7 +463,8 @@ Shinetek.Ol3Opt={
             if (oResParent_child.length=="1"){
 
 
-            }else if (oResParent_child.length!=="1"){
+            }
+            else if (oResParent_child.length!=="1"){
                 var oldmyResolution=document.getElementsByClassName("myResolution");
                 for (var i=0;i<oldmyResolution.length;i++){
                     oResParent.removeChild(oldmyResolution[i]);
@@ -475,13 +472,20 @@ Shinetek.Ol3Opt={
             }
             /*console.log(oResParent_child.length);*/
 
-
             //创建div
-            var myResolution=document.createElement("div");
-            myResolution.className="myResolution";
-            myResolution.innerHTML=res;
-            oResParent.appendChild(myResolution);
+            Shinetek.Ol3Opt.newResolution(res);
         });
+    },
+
+    /**
+     * 创建、显示分辨率信息
+     */
+    newResolution:function(res){
+        var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+        var myResolution=document.createElement("div");
+        myResolution.className="myResolution";
+        myResolution.innerHTML="分辨率："+res;
+        oResParent.appendChild(myResolution);
     },
 
     /**
