@@ -64,7 +64,12 @@ Shinetek.Ol3Opt={
         map.on('postrender',function (e) {
             var olMapLoadStatus="true";
             window.olMapLoadStatus=olMapLoadStatus;
-        })
+        });
+        map.on('pointermove',function(e){
+            var ool_zoomslider_thumb=document.getElementsByClassName("ol-zoomslider-thumb")[0];
+            ool_zoomslider_thumb.setAttribute("title",Shinetek.Ol3Opt.getZoom());
+        });
+
         //地图缩放
         Shinetek.Ol3Opt.mapZoom(map);
 
@@ -445,6 +450,13 @@ Shinetek.Ol3Opt={
      */
     getRe:function () {
         return map.getView().getResolution();
+    },
+
+    /**
+     * 获取当前的zoom值
+     */
+    getZoom:function () {
+        return map.getView().getZoom();
     },
 
     /**
