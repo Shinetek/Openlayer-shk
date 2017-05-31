@@ -18,10 +18,10 @@ Shinetek.Ol3Opt={
      */
     init:function(url){
           map = new ol.Map({
-            /*layers:[
+            layers:[
                 // 加载底图
-                Shinetek.Ol3Opt.addLayer("BaseLayer","baseLayer",url,"true","TMS"),
-            ],*/
+                /*Shinetek.Ol3Opt.addLayer("BaseLayer","baseLayer",url,"true","TMS"),*/
+            ],
             target: 'map',
             controls: ol.control.defaults({
                 attribution: false,
@@ -159,7 +159,7 @@ Shinetek.Ol3Opt={
                     /*extent: [-180, -90, 180, 90],*/
                     tileSize:[256,256],
                 }),
-                wrapX:true,
+                wrapX:false,
                 tileUrlFunction:function(tileCoord, pixelRatio, projection) {
                     var z = tileCoord[0];
                     var x = tileCoord[1];
@@ -248,7 +248,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.TileWMS({
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                    /* params: {
                         'VERSION': '1.1.1',
                         LAYERS: 'lzugis:capital',
@@ -307,7 +307,6 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.XYZ({
                     url: oURL,
-                    wrapX:true,
                     /*WMS.addLayer("WMS1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");*/
                     /*WMS.addLayer("WMS2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");*/
                 })
@@ -321,7 +320,6 @@ Shinetek.Ol3Opt={
                 source: new ol.source.Vector({                 
                     format: new ol.format.GeoJSON(),
                     url: oURL,
-                    wrapX:true,
                 }),
                 style: new ol.style.Style({
                     stroke: new ol.style.Stroke({
@@ -402,7 +400,7 @@ Shinetek.Ol3Opt={
          console.log(window.tileLoadEnd);
          console.log(window.tileLoadError);*/
         if(window.tileAllNum<=tileLoadEnd+tileLoadError){
-            /*console.log("true");*/
+            console.log("true");
             var olMapLoadStatus=true;
             Shinetek.Ol3Opt.clearAnimate();
             return olMapLoadStatus;
@@ -435,6 +433,17 @@ Shinetek.Ol3Opt={
         var layer=window.obj[nameFun];
         layer.setZIndex(zIndex);
     },
+
+    /*// Create the graticule component 经纬度网格
+    graticule : new ol.Graticule({
+        // the style to use for the lines, optional.
+        strokeStyle: new ol.style.Stroke({
+            color: 'rgba(255,120,0,0.9)',
+            width: 2,
+            lineDash: [0.5, 4]
+        })
+    }),
+    graticule.setMap(map);*/
 
     /**
      * 移动到固定位置
@@ -489,63 +498,63 @@ Shinetek.Ol3Opt={
      */
     mapZoom:function(map){
         /*var view=map.getView();
-        Shinetek.Ol3Opt.newResolution(Shinetek.Ol3Opt.getRe());
+         Shinetek.Ol3Opt.newResolution(Shinetek.Ol3Opt.getRe());
 
-        view.on('change:resolution',function(e){
-            var res=map.getView().getResolution();
-            /!* alert(res+'zoom了');*!/
-            var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
-            //清空上一个div
-            var oResParent_child=oResParent.childNodes;
-            if (oResParent_child.length=="1"){
+         view.on('change:resolution',function(e){
+         var res=map.getView().getResolution();
+         /!* alert(res+'zoom了');*!/
+         var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+         //清空上一个div
+         var oResParent_child=oResParent.childNodes;
+         if (oResParent_child.length=="1"){
 
 
-            }
-            else if (oResParent_child.length!=="1"){
-                var oldmyResolution=document.getElementsByClassName("myResolution");
-                for (var i=0;i<oldmyResolution.length;i++){
+         }
+         else if (oResParent_child.length!=="1"){
+         var oldmyResolution=document.getElementsByClassName("myResolution");
+         for (var i=0;i<oldmyResolution.length;i++){
 
-                    oResParent.removeChild(oldmyResolution[i]);
-                }
-            }
-            /!*console.log(oResParent_child.length);*!/
+         oResParent.removeChild(oldmyResolution[i]);
+         }
+         }
+         /!*console.log(oResParent_child.length);*!/
 
-            //创建div
-            Shinetek.Ol3Opt.newResolution(res);
-        });*/
+         //创建div
+         Shinetek.Ol3Opt.newResolution(res);
+         });*/
     },
 
     /**
      * 创建、显示分辨率信息
      */
     newResolution:function(res){
-    var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
-    var myResolution=document.createElement("div");
-    myResolution.className="myResolution";
-    //resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625,0.001220703125,0.0006103515625*/], //设置分辨率
-    switch (res){
-        case 0.17578125:
-            res="16000M";
-            break;
-        case 0.087890625:
-            res="8000M";
-            break;
-        case 0.0439453125:
-            res="4000M";
-            break;
-        case 0.01953125:
-            res="2000M";
-            break;
-        case 0.009765625:
-            res="1000M";
-            break;
-        case 0.0048828125:
-            res="500M";
-            break;
-    }
-    myResolution.innerHTML="分辨率："+res;
-    oResParent.appendChild(myResolution);
-},
+        var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+        var myResolution=document.createElement("div");
+        myResolution.className="myResolution";
+        //resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625,0.001220703125,0.0006103515625*/], //设置分辨率
+        switch (res){
+            case 0.17578125:
+                res="16000M";
+                break;
+            case 0.087890625:
+                res="8000M";
+                break;
+            case 0.0439453125:
+                res="4000M";
+                break;
+            case 0.01953125:
+                res="2000M";
+                break;
+            case 0.009765625:
+                res="1000M";
+                break;
+            case 0.0048828125:
+                res="500M";
+                break;
+        }
+        myResolution.innerHTML="分辨率："+res;
+        oResParent.appendChild(myResolution);
+    },
 
     /**
      * 播放动画时设置产品标题

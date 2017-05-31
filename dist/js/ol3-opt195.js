@@ -27,13 +27,13 @@ Shinetek.Ol3Opt={
                 attribution: false,
             }).extend([
                 new ol.control.FullScreen(), //全屏
-                new ol.control.MousePosition({
+                /*new ol.control.MousePosition({
                     undefinedHTML: 'outside',
                     projection: 'EPSG:4326',
                     coordinateFormat: function(coordinate) {
                         return ol.coordinate.format(coordinate, '{x}, {y}', 5);
                     }
-                }), //经纬度坐标
+                }), //经纬度坐标*/
                 /*new ol.control.OverviewMap(),*/ //鸟瞰图
                 new ol.control.ScaleLine(), // 比例尺
                 new ol.control.ZoomSlider(), //滚动轴
@@ -43,14 +43,14 @@ Shinetek.Ol3Opt={
             view: new ol.View({
                 projection: 'EPSG:4326',
                 center: [105, 34],
-                zoom: 4,
-                minZoom: 0,
-                maxZoom: 10,
+                zoom: 2,
+                minZoom: 2,
+                maxZoom: 8,
                 // 设置地图中心范围
                 /*extent: [102, 29, 104, 31],*/
                 // 设置成都为地图中心
-                /*center: [104.06, 30.67],*/
-                resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
+                center: [99.5, 0],
+                resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625,0.001220703125,0.0006103515625*/], //设置分辨率
                 extent: [-180, -90, 180, 90],
             }),
         });
@@ -69,6 +69,23 @@ Shinetek.Ol3Opt={
             var olMapLoadStatus="true";
             window.olMapLoadStatus=olMapLoadStatus;
         });*/
+        //鼠标移动
+        map.on('pointermove',function(e){
+            var ool_zoomslider_thumb=document.getElementsByClassName("ol-zoomslider-thumb")[0];
+            ool_zoomslider_thumb.setAttribute("title",Shinetek.Ol3Opt.getZoom());
+        });
+
+        //地图缩放
+        Shinetek.Ol3Opt.mapZoom(map);
+
+        //地图缩放和移动时候，重置播放动画的变量
+        var view=map.getView();
+        view.on('change:center',function(e){
+            Shinetek.Ol3Opt.clearAnimate();
+        });
+        view.on('change:resolution',function(e){
+            Shinetek.Ol3Opt.clearAnimate();
+        });
 
         /*var oAllScreen=document.getElementsByClassName("ol-overlaycontainer-stopevent")[0];
         oAllScreen.onclick=function (e) {
@@ -112,24 +129,6 @@ Shinetek.Ol3Opt={
                 }
             }
         });
-
-        //鼠标移动
-        map.on('pointermove',function(e){
-            var ool_zoomslider_thumb=document.getElementsByClassName("ol-zoomslider-thumb")[0];
-            ool_zoomslider_thumb.setAttribute("title",Shinetek.Ol3Opt.getZoom());
-        });
-
-        //地图缩放
-        Shinetek.Ol3Opt.mapZoom(map);
-
-        //地图缩放和移动时候，重置播放动画的变量
-        var view=map.getView();
-        view.on('change:center',function(e){
-            Shinetek.Ol3Opt.clearAnimate();
-        });
-        view.on('change:resolution',function(e){
-            Shinetek.Ol3Opt.clearAnimate();
-        });
     },
 
     /**
@@ -143,7 +142,7 @@ Shinetek.Ol3Opt={
      */
     addTile:function (nameFun,nameLayer,oURL,isBase,WorT) {
         //判断如果为TMS天地图，则使用png格式
-        if(oURL=="http://10.24.10.108/IMAGEL2/tianditu/WMS_20160820/"){
+        if(oURL=="http://10.24.241.199/DISKGRID/NEW/"){
             var urlTemplate = oURL+"{z}/{x}/{y}.png";
         }
         //其他TMS图使用jpg格式
@@ -155,11 +154,11 @@ Shinetek.Ol3Opt={
                 projection: 'EPSG:4326',
                 tileGrid: new ol.tilegrid.TileGrid({
                     origin: ol.extent.getBottomLeft(new ol.proj.get("EPSG:4326").getExtent()),    // 设置原点坐标
-                    resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625*/], //设置分辨率
-                    /*extent: [-180, -90, 180, 90],*/
+                    resolutions:[0.703125, 0.3515625, 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125, 0.00244140625,0.001220703125,0.0006103515625], //设置分辨率
+                    extent: [-180, -90, 180, 90],
                     tileSize:[256,256],
                 }),
-                wrapX:true,
+                wrapX:false,
                 tileUrlFunction:function(tileCoord, pixelRatio, projection) {
                     var z = tileCoord[0];
                     var x = tileCoord[1];
@@ -167,7 +166,7 @@ Shinetek.Ol3Opt={
                     var y = tileCoord[2];
                     // wrap the world on the X axis
                     var n = Math.pow(2, z + 1); // 2 tiles at z=0
-                    x = x % n;
+                    /*x = x % n;*/
                     if (x * n < 0) {
                         // x and n differ in sign so add n to wrap the result
                         // to the correct sign
@@ -248,7 +247,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.TileWMS({
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                    /* params: {
                         'VERSION': '1.1.1',
                         LAYERS: 'lzugis:capital',
@@ -279,7 +278,7 @@ Shinetek.Ol3Opt={
                     format : new ol.format.KML({
                         extractStyles: false
                     }),
-                    wrapX:true,
+                    wrapX:false,
                 }),
                 blur: 5,
                 radius: 5,
@@ -307,7 +306,7 @@ Shinetek.Ol3Opt={
                 title: nameLayer,
                 source: new ol.source.XYZ({
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                     /*WMS.addLayer("WMS1","天地图路网","http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}","false","XYZ");*/
                     /*WMS.addLayer("WMS2","天地图文字标注","http://t3.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}","false","XYZ");*/
                 })
@@ -321,7 +320,7 @@ Shinetek.Ol3Opt={
                 source: new ol.source.Vector({                 
                     format: new ol.format.GeoJSON(),
                     url: oURL,
-                    wrapX:true,
+                    wrapX:false,
                 }),
                 style: new ol.style.Style({
                     stroke: new ol.style.Stroke({
@@ -485,15 +484,14 @@ Shinetek.Ol3Opt={
 
     /**
      * 地图缩放事件
-     * 此事件郭总项目中的圆盘图使用
      */
     mapZoom:function(map){
-        /*var view=map.getView();
+        var view=map.getView();
         Shinetek.Ol3Opt.newResolution(Shinetek.Ol3Opt.getRe());
 
         view.on('change:resolution',function(e){
             var res=map.getView().getResolution();
-            /!* alert(res+'zoom了');*!/
+            /* alert(res+'zoom了');*/
             var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
             //清空上一个div
             var oResParent_child=oResParent.childNodes;
@@ -508,44 +506,44 @@ Shinetek.Ol3Opt={
                     oResParent.removeChild(oldmyResolution[i]);
                 }
             }
-            /!*console.log(oResParent_child.length);*!/
+            /*console.log(oResParent_child.length);*/
 
             //创建div
             Shinetek.Ol3Opt.newResolution(res);
-        });*/
+        });
     },
 
     /**
      * 创建、显示分辨率信息
      */
     newResolution:function(res){
-    var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
-    var myResolution=document.createElement("div");
-    myResolution.className="myResolution";
-    //resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625,0.001220703125,0.0006103515625*/], //设置分辨率
-    switch (res){
-        case 0.17578125:
-            res="16000M";
-            break;
-        case 0.087890625:
-            res="8000M";
-            break;
-        case 0.0439453125:
-            res="4000M";
-            break;
-        case 0.01953125:
-            res="2000M";
-            break;
-        case 0.009765625:
-            res="1000M";
-            break;
-        case 0.0048828125:
-            res="500M";
-            break;
-    }
-    myResolution.innerHTML="分辨率："+res;
-    oResParent.appendChild(myResolution);
-},
+        var oResParent=document.getElementsByClassName("ol-scale-line ol-unselectable")[0];
+        var myResolution=document.createElement("div");
+        myResolution.className="myResolution";
+        //resolutions:[/*0.703125, 0.3515625,*/ 0.17578125, 0.087890625, 0.0439453125, 0.01953125, 0.009765625, 0.0048828125/*, 0.00244140625,0.001220703125,0.0006103515625*/], //设置分辨率
+        switch (res){
+            case 0.17578125:
+                res="16000M";
+                break;
+            case 0.087890625:
+                res="8000M";
+                break;
+            case 0.0439453125:
+                res="4000M";
+                break;
+            case 0.01953125:
+                res="2000M";
+                break;
+            case 0.009765625:
+                res="1000M";
+                break;
+            case 0.0048828125:
+                res="500M";
+                break;
+        }
+        myResolution.innerHTML="分辨率："+res;
+        oResParent.appendChild(myResolution);
+    },
 
     /**
      * 播放动画时设置产品标题

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
-    <title>text</title>
+    <title>ol_example</title>
     <style>
         *{
             margin:0;
@@ -27,15 +27,15 @@
 
     </style>
     <link rel="stylesheet" href="../dist/css/ol3.css" type="text/css">
-    <link rel="stylesheet" href="../screenshot/css/bootstrap.css">
-    <link rel="stylesheet" href="../screenshot/css/jquery.Jcrop.css">   <!--截图-->
-    <link rel="stylesheet" href="../screenshot/css/screenshots.css">   <!--截图封装-->
+    <link rel="stylesheet" href="../lib/screenshot/css/bootstrap.css">
+    <link rel="stylesheet" href="../lib/screenshot/css/jquery.Jcrop.css">   <!--截图-->
+    <link rel="stylesheet" href="../lib/screenshot/css/screenshots.css">   <!--截图封装-->
     <link rel="stylesheet" href="../dist/css/shk-ol3.css" type="text/css">
 </head>
 <body>
 <div id="mapbig">
     <!--截图开始-->
-    <div class="camera"><img src="../screenshot/img/creamer.jpg"/></div>   <!--此处名字获取方式与实际项目不同-->
+    <div class="camera"><img src="../lib/screenshot/img/creamer.jpg"/></div>   <!--此处名字获取方式与实际项目不同-->
     <!--<div class="clock" onclick="oClock()"></div>-->
     <div id="snapshot">
 
@@ -52,15 +52,15 @@
 <script type="text/javascript" src="../dist/js/ol3-debug.js"></script>
 <script src="../dist/js/ol3-opt.js"></script>
 <script src="../dist/js/jquery.min.js"></script>
-<script src="../screenshot/js/bootstrap.js"></script>
+<script src="../lib/screenshot/js/bootstrap.js"></script>
 <script type="text/javascript" src="../dist/js/ol3-opt.js"></script>
-<script src="../screenshot/js/jquery.Jcrop.js"></script>   <!--截图-->
-<script type="text/javascript" src="../screenshot/js/screenshots.js"></script>    <!--封装截图下载-->
+<script src="../lib/screenshot/js/jquery.Jcrop.js"></script>   <!--截图-->
+<script type="text/javascript" src="../lib/screenshot/js/screenshots.js"></script>    <!--封装截图下载-->
 
 <script>
     Shinetek.Ol3Opt.init("");
     //Shinetek.Ol3Opt.init("http://10.24.10.108/IMAGEL2/GBAL/");
-    $("#snapshot").load("../screenshot/photo.html",function () {
+    $("#snapshot").load("../lib/screenshot/photo.html",function () {
         screenshots.init("http://img1.3lian.com/2015/w7/98/d/22");
     });
     Shinetek.Ol3Opt.addLayer("tianditu","TMS4","http://10.24.10.108/IMAGEL2/GBAL/","false","TMS");//TMS天地图
